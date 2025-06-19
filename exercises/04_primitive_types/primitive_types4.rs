@@ -10,6 +10,8 @@ mod tests {
 
         // TODO: 以下のテストが通るような`nice_slice`というスライスを配列aから作成してください。
         // let nice_slice = ???
+        let nice_slice: &[i32] = &a[1..4];
+        println!("{}", a[1]);
 
         assert_eq!([2, 3, 4], nice_slice);
     }

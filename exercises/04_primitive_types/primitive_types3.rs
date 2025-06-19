@@ -1,7 +1,7 @@
 fn main() {
     // TODO: `a`という要素数が100以上の配列を作成してください。
     // let a = ???
-
+    let a = [1; 100];
     if a.len() >= 100 {
         println!("Wow, that's a big array!");
     } else {

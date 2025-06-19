@@ -10,7 +10,7 @@ mod tests {
 
         // TODO: `numbers`タプルの二つ目の要素にインデックスを使ってアクセスし、`second`変数に代入しましょう。
         // let second = ???;
-
+        let second = numbers.1;
         assert_eq!(second, 2, "This is not the 2nd number in the tuple!");
     }
 }
