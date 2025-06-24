@@ -37,6 +37,11 @@ mod tests {
         // 構造体更新記法やorder_template変数を使ってあなたのオーダーを作成してください。
         // let your_order =
 
+        let mut your_order = create_order_template();
+        your_order.name = "Hacker in Rust".to_string();
+        your_order.count = 1;
+
+
         assert_eq!(your_order.name, "Hacker in Rust");
         assert_eq!(your_order.year, order_template.year);
         assert_eq!(your_order.made_by_phone, order_template.made_by_phone);
