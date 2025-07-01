@@ -13,7 +13,7 @@ struct TeamScores {
 
 fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
     // チームの名前はキー、構造体はバリューに格納します。
-    let mut scores = HashMap::new();
+    let mut scores: HashMap<&str, TeamScores> = HashMap::new();
 
     for line in results.lines() {
         let mut split_iterator = line.split(',');
@@ -25,6 +25,16 @@ fn build_scores_table(results: &str) -> HashMap<&str, TeamScores> {
 
         // TODO: スコアテーブルに引数resultsから取得したデータを格納しましょう。
         // チーム1の取得点はチーム2の失点であることに留意しましょう。
+        let team_1_scores = TeamScores {
+            goals_scored: team_1_score + scores.get(&team_1_name).unwrap_or(&TeamScores { goals_scored:0, goals_conceded: 0 }).goals_scored,
+            goals_conceded: team_2_score + scores.get(&team_1_name).unwrap_or(&TeamScores { goals_scored:0, goals_conceded: 0 }).goals_conceded
+        };
+        let team_2_scores = TeamScores {
+            goals_scored: team_2_score + scores.get(&team_2_name).unwrap_or(&TeamScores { goals_scored:0, goals_conceded: 0 }).goals_scored,
+            goals_conceded: team_1_score + scores.get(&team_2_name).unwrap_or(&TeamScores { goals_scored:0, goals_conceded: 0 }).goals_conceded
+        };
+        scores.insert(team_1_name, team_1_scores);
+        scores.insert(team_2_name, team_2_scores);
     }
 
     scores
