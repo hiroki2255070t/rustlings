@@ -10,6 +10,11 @@ struct PositiveNonzeroInteger(u64);
 impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<Self, CreationError> {
         // TODO: この関数はいつも`Ok`を返すべきではない。
+        if value == 0 {
+            return Err(CreationError::Zero)
+        } else if value < 0 {
+            return Err(CreationError::Negative)
+        }
         Ok(Self(value as u64))
     }
 }

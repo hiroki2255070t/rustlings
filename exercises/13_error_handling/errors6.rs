@@ -1,5 +1,5 @@
 // `Box<dyn Error>`のような全てのエラーをキャッチする型は、コンテンツのエラーを出力したり、
-//さらにエラーを伝播する代わりにエラーに基づいて決断を下したいライブラリに対して利用するのは好ましくない。
+// さらにエラーを伝播する代わりにエラーに基づいて決断を下したいライブラリに対して利用するのは好ましくない。
 // そこでカスタムのエラー型を定義し、関数を呼び出した側が次に何をすべきか、関数がいつエラーを返すべきかを決められるようにします。
 
 use std::num::ParseIntError;
@@ -24,6 +24,9 @@ impl ParsePosNonzeroError {
 
     // TODO: 他のエラー処理を書いてください。
     // fn from_parse_int(???) -> Self { ??? }
+    fn from_parse_int(err: ParseIntError) -> Self {
+        Self::ParseInt(err)
+    }
 }
 
 #[derive(PartialEq, Debug)]
@@ -40,7 +43,7 @@ impl PositiveNonzeroInteger {
 
     fn parse(s: &str) -> Result<Self, ParsePosNonzeroError> {
         // TODO: `parse()`でpanicエラーを返してしまう前に適切なエラーを返すように修正してください。
-        let x: i64 = s.parse().unwrap();
+        let x: i64 = s.parse().map_err(ParsePosNonzeroError::from_parse_int)?;
         Self::new(x).map_err(ParsePosNonzeroError::from_creation)
     }
 }
